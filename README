@@ -1,0 +1,26 @@
+bdremux - a blu-ray movie stream remuxer <fraxinas@opendreambox.org>
+
+Usage: ./bdremux source_stream.ts output_stream.m2ts [OPTION...]
+
+Optional arguments:
+  -e, --entrypoints               Generate and display the SPN/PTS map
+  -c, --cutlist                   use enigma2's $source_stream.ts.cuts file
+  -q, --queue-size=INT            max size of queue in bytes (default=50331648)
+  -s, --source-pids=STRING        list of PIDs to be considered
+  -r, --result-pids=STRING        list of PIDs in resulting stream
+     PIDs can be supplied in decimal or hexadecimal form (0x prefixed)
+     the lists are supposed to be comma-seperated with the Video PID
+     as the first element followed by 1-7 Audio PIDs.
+     If omitted, the first video and all audio elementary streams are
+     carried over, keeping their PIDs (this may require a larger queue size).
+
+Help options:
+  -?, --help                      Show this help message
+  -v, --version                   Display GSTREAMER version
+
+Example: ./bdremux in.ts out.m2ts -e -s0x40,0x4A,0x4C -r0x1011,0x1100,0x1101
+  Will extract the video elementary stream with PID 0x40 and the audio
+  streams with PIDs 0x41 and 0x4C from the file in.ts and write new
+  remultiplexed streams with PID numbers 0x1011 for video and 0x1100
+  and 0x1101 for audio into the file out.m2ts while showing a map
+  of entrypoints on stdout.
